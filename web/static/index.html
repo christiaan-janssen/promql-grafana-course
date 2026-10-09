@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PromQL + Grafana — Interactive Course</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="wrap head">
+    <h1>🐻 PromQL + Grafana</h1>
+    <nav id="status" title="Stack status">
+      <span class="pill" id="pill-prom">Prometheus …</span>
+      <span class="pill" id="pill-graf">Grafana …</span>
+    </nav>
+  </div>
+  <div class="wrap sub">Interactive course · runs against your live lab</div>
+</header>
+
+<div class="wrap layout">
+  <aside id="toc">
+    <div class="toc-title">Lessons</div>
+    <ol id="toc-list"></ol>
+    <div class="quick">
+      <div class="toc-title">Quick links</div>
+      <a href="http://localhost:3000/explore" target="_blank" rel="noopener">↗ Grafana Explore</a>
+      <a href="http://localhost:3000/dashboards" target="_blank" rel="noopener">↗ Dashboards</a>
+      <a href="http://localhost:9090/graph" target="_blank" rel="noopener">↗ Prometheus UI</a>
+      <a href="http://localhost:9090/rules" target="_blank" rel="noopener">↗ Rules</a>
+      <a href="http://localhost:9090/alerts" target="_blank" rel="noopener">↗ Alerts</a>
+    </div>
+  </aside>
+
+  <main id="content" aria-live="polite">
+    <noscript>This course needs JavaScript to run queries against your lab.</noscript>
+  </main>
+</div>
+
+<footer class="wrap">
+  <span>Prometheus <a href="http://localhost:9090" target="_blank" rel="noopener">:9090</a> ·
+        Grafana <a href="http://localhost:3000" target="_blank" rel="noopener">:3000</a> ·
+        Course UI :8080</span>
+</footer>
+
+<script src="/lessons.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

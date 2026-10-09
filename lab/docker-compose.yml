@@ -1,0 +1,52 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: promql-lab-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/rules.yml:/etc/prometheus/rules.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=7d'
+      - '--web.enable-lifecycle'   # allows POST /-/reload after editing rules
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: promql-lab-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: promql-lab-node-exporter
+    ports:
+      - "9100:9100"
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - /:/host:ro,rslave
+    restart: unless-stopped
+
+  course-web:
+    image: promql-course-web:latest
+    container_name: promql-lab-web
+    build: ../web
+    ports:
+      - "8080:80"
+    depends_on:
+      - prometheus
+      - grafana
+    restart: unless-stopped

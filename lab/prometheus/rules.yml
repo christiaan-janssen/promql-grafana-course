@@ -1,0 +1,19 @@
+groups:
+  - name: node
+    interval: 30s
+    rules:
+      # Recording rule: precompute total CPU rate per instance.
+      # Query as: instance:node_cpu_seconds_total:rate5m
+      - record: instance:node_cpu_seconds_total:rate5m
+        expr: sum by (instance) (rate(node_cpu_seconds_total[5m]))
+
+      # Alerting rule: fires when the busiest CPU core stays >90% busy for 2m.
+      # Trigger it by running `yes > /dev/null` on the host (pins one core).
+      - alert: NodeHighCPU
+        expr: max by (instance) (100 - rate(node_cpu_seconds_total{mode="idle"}[5m]) * 100) > 90
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU on {{ $labels.instance }}"
+          description: "The busiest CPU core on {{ $labels.instance }} has been >90% busy for more than 2 minutes."
