@@ -11,10 +11,10 @@ cd lab
 docker compose up -d   # or: docker-compose up -d
 ```
 
-Course: [[http://localhost:8080/]]
+Course: http://localhost:8080/
 Grafana: http://localhost:3000 (admin / admin) — Prometheus: http://localhost:9090
 
-**How to use this course:** read each lesson, run the example queries yourself in the web ui [[http://localhost:8080/]] or in Prometheus at http://localhost:9090/graph or Grafana Explore, then do the exercise. Queries return live data from the lab's `node_exporter`.
+**How to use this course:** read each lesson, run the example queries yourself in the (web ui)[http://localhost:8080/] or in Prometheus at http://localhost:9090/graph or Grafana Explore, then do the exercise. Queries return live data from the lab's `node_exporter`.
 
 ---
 
